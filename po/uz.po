@@ -804,9 +804,8 @@ msgid ""
 "anything\n"
 "about Rust and hope to:"
 msgstr ""
-"Kursning maqsadi sizga Rustni o'rgatishdir. Siz Rust haqida hech"
-"narsa bilmaysiz deb o'ylaymiz\n"
-"va umid qilamizki:"
+"Kurs siz Rust haqida hech narsa bilmasligingizni taxmin qiladi"
+"va quyidagi maqsadlarga ega:"
 
 #: src/welcome.md:10
 msgid ""
@@ -814,10 +813,13 @@ msgid ""
 "* Enable you to modify existing programs and write new programs in Rust.\n"
 "* Show you common Rust idioms."
 msgstr ""
+"* Rust sintaksisi va tili haqida har tomonlama tushuncha beradi.\n"
+"* Rust-da mavjud dasturlarni o'zgartirishingiz va yangilarini yozishingiz mumkin.\n"
+"* Umumiy Rust idiomalarini ko'rsatadi."
 
 #: src/welcome.md:14
 msgid "On Day 4, we will cover Android-specific things such as:"
-msgstr ""
+msgstr "4-kuni biz Android-ga xos narsalarni ko'rib chiqamiz, masalan:"
 
 #: src/welcome.md:16
 msgid ""
@@ -825,6 +827,9 @@ msgid ""
 "* AIDL servers and clients.\n"
 "* Interoperability with C, C++, and Java."
 msgstr ""
+"* Rust-da Android komponentlarini yaratish.\n"
+"* AIDL serverlari va mijozlari.\n"
+"* C, C++ va Java bilan o'zaro ishlash."
 
 #: src/welcome.md:20
 msgid ""
@@ -834,10 +839,13 @@ msgid ""
 "about\n"
 "writing code for Android itself, the operating system. "
 msgstr ""
+"Ushbu kurs Rust bilan Android ilovalarini ishlab chiqishni qamrab olmaydi. \n"
+"Ushbu ma'ruzada ko'rib chiqilgan Android-ga xos tarkib Android OS qismlarini"
+"Rust bilan ishlab chiqish haqida."
 
 #: src/welcome.md:24
 msgid "## Non-Goals"
-msgstr ""
+msgstr "## Istisnolar"
 
 #: src/welcome.md:26
 msgid ""
@@ -845,6 +853,8 @@ msgid ""
 "days.\n"
 "Some non-goals of this course are:"
 msgstr ""
+"Rust - bu katta til va biz bir necha kun ichida hammasini qamrab ololmaymiz. \n"
+"Ushbu kursning ba'zi bir istisnolari:"
 
 #: src/welcome.md:29
 msgid ""
@@ -856,10 +866,17 @@ msgid ""
 "  Book](https://doc.rust-lang.org/book/ch19-06-macros.html) and [Rust by\n"
 "  Example](https://doc.rust-lang.org/rust-by-example/macros.html) instead."
 msgstr ""
+"* Async Rustdan qanday foydalanishni o'rganing - biz faqat an'anaviy parallellik \n"
+" primitivlarini qamrab olganimizda async Rust haqida gapiramiz.\n"
+" Iltimos, ushbu mavzu bo'yicha batafsil ma'lumot uchun"
+" [Rust-da Asinxron Dasturlash](https://rust-lang.github.io/async-book/) bo'limini ko'ring."
+"* Makroslarni qanday ishlab chiqishni o'rganing, uning o'rniga [Rust \n"
+" kitobining 19.5-bobiga](https://doc.rust-lang.org/book/ch19-06-macros.html) qarang va"
+" [Rust by Example](https://doc.rust-lang.org/rust-by-example/macros.html)."
 
 #: src/welcome.md:37
 msgid "## Assumptions"
-msgstr ""
+msgstr "## O'quvchi darajasi haqida taxminlar"
 
 #: src/welcome.md:39
 msgid ""
@@ -869,6 +886,9 @@ msgid ""
 "better\n"
 "explain or contrast the Rust approach."
 msgstr ""
+"Kurs siz allaqachon dasturlashni bilasiz deb taxmin qiladi. Rust - bu statik"
+"tarzda yozilgan til va biz Rust yondashuvini yaxshiroq tushuntirish yoki farqlash"
+"uchun ba'zan C va C ++ bilan taqqoslash qilamiz."
 
 #: src/welcome.md:43
 msgid ""
@@ -876,6 +896,8 @@ msgid ""
 "or\n"
 "JavaScript, then you will be able to follow along just fine too."
 msgstr ""
+"Agar siz Python yoki JavaScript kabi dinamik tarzda yozilgan tilda dasturlashni"
+"bilsangiz, unga amal qilishda sizda katta muammo bo‘lmaydi."
 
 #: src/welcome.md:46 src/cargo/rust-ecosystem.md:19
 #: src/cargo/code-samples.md:22 src/cargo/running-locally.md:68
