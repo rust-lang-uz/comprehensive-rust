@@ -14,7 +14,9 @@
 
 // ANCHOR: ffi
 mod ffi {
-    use std::os::raw::{c_char, c_int, c_long, c_ulong, c_ushort};
+    use std::os::raw::{c_char, c_int};
+    #[cfg(not(target_os = "macos"))]
+    use std::os::raw::{c_long, c_ulong, c_ushort};
 
     // Opaque type. See https://doc.rust-lang.org/nomicon/ffi.html.
     #[repr(C)]
@@ -24,6 +26,7 @@ mod ffi {
     }
 
     // Layout as per readdir(3) and definitions in /usr/include/x86_64-linux-gnu.
+    #[cfg(not(target_os = "macos"))]
     #[repr(C)]
     pub struct dirent {
         pub d_ino: c_long,
@@ -31,6 +34,18 @@ mod ffi {
         pub d_reclen: c_ushort,
         pub d_type: c_char,
         pub d_name: [c_char; 256],
+    }
+
+    // Layout as per man entry for dirent
+    #[cfg(target_os = "macos")]
+    #[repr(C)]
+    pub struct dirent {
+        pub d_ino: u64,
+        pub d_seekoff: u64,
+        pub d_reclen: u16,
+        pub d_namlen: u16,
+        pub d_type: u8,
+        pub d_name: [c_char; 1024],
     }
 
     extern "C" {
@@ -108,3 +123,42 @@ fn main() -> Result<(), String> {
     Ok(())
 }
 // ANCHOR_END: main
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::error::Error;
+
+    #[test]
+    fn test_nonexisting_directory() {
+        let iter = DirectoryIterator::new("no-such-directory");
+        assert!(iter.is_err());
+    }
+
+    #[test]
+    fn test_empty_directory() -> Result<(), Box<dyn Error>> {
+        let tmp = tempfile::TempDir::new()?;
+        let iter = DirectoryIterator::new(
+            tmp.path().to_str().ok_or("Non UTF-8 character in path")?,
+        )?;
+        let mut entries = iter.collect::<Vec<_>>();
+        entries.sort();
+        assert_eq!(entries, &[".", ".."]);
+        Ok(())
+    }
+
+    #[test]
+    fn test_nonempty_directory() -> Result<(), Box<dyn Error>> {
+        let tmp = tempfile::TempDir::new()?;
+        std::fs::write(tmp.path().join("foo.txt"), "The Foo Diaries\n")?;
+        std::fs::write(tmp.path().join("bar.png"), "<PNG>\n")?;
+        std::fs::write(tmp.path().join("crab.rs"), "//! Crab\n")?;
+        let iter = DirectoryIterator::new(
+            tmp.path().to_str().ok_or("Non UTF-8 character in path")?,
+        )?;
+        let mut entries = iter.collect::<Vec<_>>();
+        entries.sort();
+        assert_eq!(entries, &[".", "..", "bar.png", "crab.rs", "foo.txt"]);
+        Ok(())
+    }
+}

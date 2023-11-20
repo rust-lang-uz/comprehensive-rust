@@ -26,3 +26,35 @@ fn main() {
     println!("{a:?} not_equals {b:?}: {}", a.not_equal(&b));
 }
 ```
+
+<details>
+
+* Traits may specify pre-implemented (default) methods and methods that users are required to
+  implement themselves. Methods with default implementations can rely on required methods.
+
+* Move method `not_equal` to a new trait `NotEqual`.
+
+* Make `NotEqual` a super trait for `Equal`.
+    ```rust,editable,compile_fail
+    trait NotEqual: Equals {
+        fn not_equal(&self, other: &Self) -> bool {
+            !self.equal(other)
+        }
+    }
+    ```
+
+* Provide a blanket implementation of `NotEqual` for `Equal`.
+    ```rust,editable,compile_fail
+    trait NotEqual {
+        fn not_equal(&self, other: &Self) -> bool;
+    }
+
+    impl<T> NotEqual for T where T: Equals {
+        fn not_equal(&self, other: &Self) -> bool {
+            !self.equal(other)
+        }
+    }
+    ```
+  * With the blanket implementation, you no longer need `NotEqual` as a super trait for `Equal`.
+    
+</details>

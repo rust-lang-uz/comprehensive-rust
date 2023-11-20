@@ -21,7 +21,7 @@ GNU Gettext utilities below.
 [Gettext]: https://www.gnu.org/software/gettext/manual/html_node/index.html
 [ISO 639]: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 
-## I18n Helpers
+## Preparation
 
 We use two helpers for the translations:
 
@@ -30,10 +30,10 @@ We use two helpers for the translations:
 * `mdbook-gettext`: This program translates the book into a target language. It
   is an mdbook preprocessor.
 
-Install both helpers with the following command from the root of the course:
+Install both helpers with:
 
 ```shell
-$ cargo install --path i18n-helpers
+$ cargo install mdbook-i18n-helpers
 ```
 
 ## Creating and Updating Translations
@@ -45,6 +45,9 @@ file. You should also not edit the `msgid` entries in a `po/xx.po` file. If you
 find mistakes, you need to update the original English text instead. The fixes
 to the English text will flow into the `.po` files the next time the translators
 update them.
+
+> **Tip:** See our [style guide](STYLE.md) for some things to keep in mind when
+> writing the translation.
 
 ### Generating the PO Template
 
@@ -70,6 +73,18 @@ $ msginit -i po/messages.pot -l xx -o po/xx.po
 You can also simply copy `po/messages.pot` to `po/xx.po`. Then update the file
 header (the first entry with `msgid ""`) to the correct language.
 
+> **Tip:** You can use the
+> [`cloud-translate`](https://github.com/mgeisler/cloud-translate) tool to
+> quickly machine-translate a new translation. Install it with
+>
+> ```shell
+> cargo install cloud-translate
+> ```
+>
+> Untranslated entries will be sent through GCP Cloud Translate. Some of the
+> translations will be wrong after this, so you must inspect them by hand
+> afterwards.
+
 ### Updating an Existing Translation
 
 As the English text changes, translations gradually become outdated. To update
@@ -90,10 +105,11 @@ remove the fuzzy marker.
 This will show you how to use the translations to generate localized HTML
 output.
 
-Note: `mdbook` will use original untranslated entries for all entries marked as
-"fuzzy" (visible as "Needs work" in Poedit). This is especially important when
-using `cloud-translate` for initial translation as all entries will be marked
-as "fuzzy".
+> **Note:** `mdbook` will use original untranslated entries for all entries
+> marked as "fuzzy" (visible as "Needs work" in Poedit). This is especially
+> important when using
+> [`cloud-translate`](https://github.com/mgeisler/cloud-translate) for initial
+> translation as all entries will be marked as "fuzzy".
 
 ### Building a Translation
 
@@ -115,3 +131,6 @@ it. You use the same command as with `mdbook build` above:
 ```shell
 $ MDBOOK_BOOK__LANGUAGE=xx mdbook serve -d book/xx
 ```
+
+When you update the `po/xx.po` file, the translated book will automatically
+reload.
